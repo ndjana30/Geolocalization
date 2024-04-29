@@ -1,12 +1,15 @@
 package com.geo.localization.Services;
 
 import org.springframework.stereotype.Service;
+
+import com.geo.localization.Model.Point;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Country;
 import com.maxmind.geoip2.record.Location;
+import java.awt.geom.Point2D;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,5 +38,7 @@ public class GeoLocalizationService {
         InetAddress ip = InetAddress.getByName(ipAddress);
         return reader.city(ip);
     }
+
+    
     
 }
