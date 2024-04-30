@@ -1,7 +1,6 @@
 package com.geo.localization.Rest;
 
 import java.io.IOException;
-
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.geo.localization.Model.Point;
 import com.geo.localization.Services.GeoLocalizationService;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
@@ -17,12 +15,16 @@ import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Country;
 import com.maxmind.geoip2.record.Location;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 @RestController()
 public class GeoLocalizationEndpoints {
     @Autowired
+    public HttpServletRequest request;
+    @Autowired
     private GeoLocalizationService geoLocalizationService;
-
+    
     @GetMapping("user/{ip1}/{ip2}")
     //Method to look for the latitude of two different points using their ipAdresses
     public Object adressParams(@PathVariable String ip1, @PathVariable String ip2) throws IOException, GeoIp2Exception
@@ -57,6 +59,16 @@ public class GeoLocalizationEndpoints {
         return "Distance between \t"+ A.getName() + "\t" +"and \t" + B.getName()+ "\t  is"+ distance+"\t kilo metres";
     }
 
+    
+
+    @GetMapping("/user/ip")
+    public String getUserIP() {
+        String ipAddress = request.getHeader("X-Forwarded-For");
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getRemoteAddr();
+        }
+        return ipAddress;
+    }
     // @GetMapping("user")
     // public String getLocation(@RequestParam String ipAddress) throws IOException, GeoIp2Exception {
     //     CityResponse response = geoLocalizationService.getLocation(ipAddress);
