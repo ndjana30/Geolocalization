@@ -15,7 +15,7 @@ import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Country;
 import com.maxmind.geoip2.record.Location;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 
 @RestController()
