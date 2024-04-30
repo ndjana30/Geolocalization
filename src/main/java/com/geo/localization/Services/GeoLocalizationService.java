@@ -14,6 +14,7 @@ import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 
 @Service
@@ -22,7 +23,9 @@ public class GeoLocalizationService {
 
     public GeoLocalizationService() throws IOException {
         try{
-        File database = new File("src/main/resources/GeoLite2-City.mmdb");
+        // InputStream inputStream = getClass().getClassLoader().getResourceAsStream("GeoLite2-City.mmdb");
+        File database = new File("GeoLite2-City.mmdb");
+
         this.reader = new DatabaseReader.Builder(database).build();
         System.out.println("FILE FOUND");
         }
